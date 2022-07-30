@@ -1,6 +1,6 @@
-######################################
+################################################
 # ZeroMQ Scratchpad programs
-######################################
+################################################
 cmake_minimum_required( VERSION 3.24 )
 project( zeromq-scratchpad LANGUAGES C CXX )
 
@@ -8,7 +8,12 @@ project( zeromq-scratchpad LANGUAGES C CXX )
 set( CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/build
      CACHE PATH " " FORCE )
 
+# Use folders in IDE to organize targets
+set_property( GLOBAL PROPERTY USE_FOLDERS ON )
+
+################################################
 # Build dependencies as external projects
+################################################
 include( ExternalProject )
 
 ExternalProject_Add( libzmq
@@ -19,7 +24,7 @@ ExternalProject_Add( libzmq
                      -D BUILD_SHARED=TRUE
                      -D BUILD_STATIC=TRUE
 )
-# set_target_properties( libzmq )
+set_target_properties( libzmq PROPERTIES FOLDER ExternalProjectTarget )
 
 ExternalProject_Add( czmq
                      SOURCE_DIR ${CMAKE_SOURCE_DIR}/dependencies/czmq
@@ -31,3 +36,8 @@ ExternalProject_Add( czmq
                      -D libzmq_LIBRARY_DEBUG=${CMAKE_INSTALL_PREFIX}/external/libzmq/lib/libzmq-v143-mt-gd-4_3_5.lib
                      -D libzmq_LIBRARY_RELEASE=${CMAKE_INSTALL_PREFIX}/external/libzmq/lib/libzmq-v143-mt-sgd-4_3_5.lib
 )
+set_target_properties( czmq PROPERTIES FOLDER ExternalProjectTarget )
+
+################################################
+#
+################################################
