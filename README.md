@@ -1,1 +1,1 @@
-# zeromq-scratchpad
+# ZeroMQ Scratchpad
